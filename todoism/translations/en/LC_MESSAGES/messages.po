@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-05-08 19:03+0800\n"
+"POT-Creation-Date: 2019-05-08 21:38+0800\n"
 "PO-Revision-Date: 2019-05-08 18:46+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -117,7 +117,7 @@ msgstr "We are todoist, we use todoism"
 
 #: todoism/templates/_intro.html:14
 msgid "demo.png"
-msgstr "demo.png"
+msgstr "demo_en.png"
 
 #: todoism/templates/_intro.html:18
 msgid "快速开始"
@@ -145,7 +145,7 @@ msgid "登陆"
 msgstr "Login"
 
 #: todoism/templates/_login.html:16
-msgid "显式密码"
+msgid "显示密码"
 msgstr "Toggle Password"
 
 #: todoism/templates/base.html:32
@@ -171,3 +171,4 @@ msgstr "Your todo was empty"
 #: todoism/templates/index.html:30
 msgid "用户名或密码不能为空!"
 msgstr "Empty username or password!"
+

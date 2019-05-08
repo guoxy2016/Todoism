@@ -1,5 +1,6 @@
 import os
 
+import click
 from flask import Flask, request, render_template, jsonify
 from flask_login import current_user
 
@@ -21,6 +22,7 @@ def create_app(config_name=None):
     register_shell_context(app)
     register_template_context(app)
     register_errors(app)
+    register_commands(app)
 
     return app
 
@@ -69,7 +71,8 @@ def register_errors(app=None):
 
     @app.errorhandler(404)
     def page_not_found(e):
-        if request.accept_mimetypes.accept_json and not request.accept_mimetypes.accept_html or request.path.startswith('/api'):
+        if request.accept_mimetypes.accept_json and not request.accept_mimetypes.accept_html or request.path.startswith(
+                '/api'):
             response = jsonify(code=e.code, message=e.description)
             response.status_code = 404
             return response
@@ -83,7 +86,8 @@ def register_errors(app=None):
 
     @app.errorhandler(500)
     def internal_server_error(e):
-        if request.accept_mimetypes.accept_json and not request.accept_mimetypes.accept_html or request.host.startswith('/api'):
+        if request.accept_mimetypes.accept_json and not request.accept_mimetypes.accept_html or request.host.startswith(
+                '/api'):
             response = jsonify(code=e.code, message=e.description)
             response.status_code = 500
             return response
@@ -91,4 +95,32 @@ def register_errors(app=None):
 
 
 def register_commands(app=None):
-    pass
+    @app.cli.group()
+    def translate():
+        """翻译以及本地化命令"""
+        pass
+
+    @translate.command()
+    @click.argument('locale')
+    def init(locale):
+        """初始化新的语言"""
+        if os.system('pybabel extract -F babel.cfg -k _l -o messages.pot .'):
+            raise RuntimeError('执行extract命令失败')
+        if os.system('pybabel init -i messages.pot -d todoism/translations -l ' + locale):
+            raise RuntimeError('执行init命令失败')
+        os.remove('messages.pot')
+
+    @translate.command()
+    def update():
+        """更新所有语言"""
+        if os.system('pybabel extract -F babel.cfg -k _l -o messages.pot .'):
+            raise RuntimeError('执行extract命令失败')
+        if os.system('pybabel update -i messages.pot -d todoism/translations'):
+            raise RuntimeError('执行update命令失败')
+        os.remove('messages.pot')
+
+    @translate.command()
+    def compile():
+        """编译所有语言"""
+        if os.system('pybabel compile -d todoism/translations'):
+            raise RuntimeError('执行compile命令失败')

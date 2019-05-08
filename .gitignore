@@ -8,3 +8,5 @@ data-dev.db
 data.db
 Pipfile.lock
 .vscode
+*.mo
+
