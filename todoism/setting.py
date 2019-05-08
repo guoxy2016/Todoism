@@ -4,8 +4,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 class Base:
+    TODOISM_LOCALES = ['zh', 'en']
     SECRET_KEY = os.getenv('SECRET_KEY', 'secret-key')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    BABEL_DEFAULT_LOCALE = TODOISM_LOCALES[0]
 
 
 class Development(Base):
