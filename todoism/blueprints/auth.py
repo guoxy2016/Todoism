@@ -19,7 +19,7 @@ def login():
         user = User.query.filter_by(username=username).first()
         if user is None:
             return jsonify(message=_('用户不存在.')), 400
-        if user.validate_password(password):
+        if not user.validate_password(password):
             return jsonify(message=_('密码错误')), 400
         login_user(user)
         return jsonify(message=_('登陆成功'))

@@ -24,7 +24,7 @@ def set_locale(locale):
 
     response = make_response(jsonify(message=_('设置成功')))
     if current_user.is_authenticated:
-        current_user.local = locale
+        current_user.locale = locale
         db.session.commit()
     else:
         response.set_cookie('locale', locale, max_age=60 * 60 * 24 * 30)
