@@ -5,7 +5,6 @@ from flask import Flask, request, render_template, jsonify
 from flask_login import current_user
 
 from .apis.v1 import api_v1
-from .apis.v2 import api_v2
 from .blueprints import auth_bp, home_bp, todo_bp
 from .extensions import db, login_manager, csrf, babel
 from .modles import User, Item
@@ -38,7 +37,6 @@ def register_extensions(app=None):
     login_manager.init_app(app)
     csrf.init_app(app)
     csrf.exempt(api_v1)
-    csrf.exempt(api_v2)
     babel.init_app(app)
 
 
@@ -47,7 +45,6 @@ def register_blueprint(app=None):
     app.register_blueprint(home_bp)
     app.register_blueprint(todo_bp)
     app.register_blueprint(api_v1, subdomain='api', url_prefix='/v1')
-    app.register_blueprint(api_v2, subdomain='api', url_prefix='/v2')
 
 
 def register_shell_context(app=None):
@@ -92,7 +89,8 @@ def register_errors(app=None):
 
     @app.errorhandler(500)
     def internal_server_error(e):
-        if request.accept_mimetypes.accept_json and not request.accept_mimetypes.accept_html or request.host.startswith('api'):
+        if request.accept_mimetypes.accept_json and not request.accept_mimetypes.accept_html or request.host.startswith(
+                'api'):
             if hasattr(e, 'code') and hasattr(e, 'description'):
                 response = jsonify(code=500, message=e.description)
             else:
@@ -104,6 +102,18 @@ def register_errors(app=None):
 
 
 def register_commands(app=None):
+    @app.cli.command()
+    @click.option('--drop', is_flag=True, help='删除后创建')
+    def init_db(drop):
+        """初始化数据库"""
+        if drop:
+            click.confirm('这将清空整个数据库, 你确定吗?', abort=True)
+            db.drop_all()
+            click.echo('数据库清理完毕!')
+        click.echo('正在初始化数据库...')
+        db.create_all()
+        click.echo('Done!')
+
     @app.cli.group()
     def translate():
         """翻译以及本地化命令"""

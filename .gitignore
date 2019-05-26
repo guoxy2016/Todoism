@@ -1,5 +1,4 @@
 # Created by .ignore support plugin (hsz.mobi)
-### flask ignore template
 __pycache__
 *.py[cod]
 .idea/
@@ -9,4 +8,5 @@ data.db
 Pipfile.lock
 .vscode
 *.mo
-
+.coverage
+htmlcov

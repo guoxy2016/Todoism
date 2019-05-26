@@ -17,10 +17,8 @@ def login():
         username = data['username']
         password = data['password']
         user = User.query.filter_by(username=username).first()
-        if user is None:
-            return jsonify(message=_('用户不存在.')), 400
-        if not user.validate_password(password):
-            return jsonify(message=_('密码错误')), 400
+        if user is None or not user.validate_password(password):
+            return jsonify(message=_('用户或密码错误.')), 400
         login_user(user)
         return jsonify(message=_('登陆成功'))
     return render_template('_login.html')
@@ -29,7 +27,7 @@ def login():
 @auth_bp.route('/logout')
 def logout():
     logout_user()
-    return jsonify(_('用户已退出'))
+    return jsonify(message=_('用户已退出'))
 
 
 @auth_bp.route('/register', methods=['POST'])

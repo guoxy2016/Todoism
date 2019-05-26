@@ -25,7 +25,7 @@ class IndexAPI(MethodView):
             api_base_url=url_for('.index', _external=True),
             current_user_url=url_for('.user', _external=True),
             authentication_url=url_for('.token', _external=True),
-            item_url='http://api.todoism.dev.com:8000/v1/user/items/{item_id}',
+            item_url=url_for('.item', item_id=0, _external=True)[:-1] + '{item_id}',
             current_user_items_url=url_for('.items', _external=True),
             current_user_active_items_url=url_for('.active_items', _external=True),
             current_user_completed_items_url=url_for('.active_items', _external=True)
@@ -157,7 +157,7 @@ class CompletedItemAPI(MethodView):
         """获取所有已完成的条目"""
         page = request.args.get('page', 1, int)
         per_page = request.args.get('per_page', current_app.config['TODOISM_ITEMS_PER_PAGE'], int)
-        pagination = Item.query.with_parent(g.current_user).filter_by(done=False).order_by(
+        pagination = Item.query.with_parent(g.current_user).filter_by(done=True).order_by(
             Item.timestamp.desc()).paginate(page, per_page)
         items = pagination.items
         current = url_for('.complete_items', page=page, per_page=per_page, _external=True)
@@ -182,4 +182,4 @@ api_v1.add_url_rule('/user', view_func=UserAPI.as_view('user'))
 api_v1.add_url_rule('/user/items', view_func=ItemsAPI.as_view('items'))
 api_v1.add_url_rule('/user/items/<int:item_id>', view_func=ItemAPI.as_view('item'))
 api_v1.add_url_rule('/user/items/active', view_func=ActiveItemsAPI.as_view('active_items'))
-api_v1.add_url_rule('/user/items/active', view_func=CompletedItemAPI.as_view('complete_items'))
+api_v1.add_url_rule('/user/items/complete', view_func=CompletedItemAPI.as_view('complete_items'))

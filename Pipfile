@@ -6,6 +6,8 @@ verify_ssl = true
 [dev-packages]
 faker = "*"
 watchdog = "*"
+coverage = "*"
+selenium = "*"
 
 [packages]
 flask = "*"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-05-08 21:38+0800\n"
+"POT-Creation-Date: 2019-05-25 19:06+0800\n"
 "PO-Revision-Date: 2019-05-08 18:46+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -23,42 +23,38 @@ msgid "登陆之后才能访问这个页面."
 msgstr "Please login to access this page."
 
 #: todoism/blueprints/auth.py:21
-msgid "用户不存在."
-msgstr "Invalid username"
+msgid "用户或密码错误."
+msgstr "Username or password error"
 
 #: todoism/blueprints/auth.py:23
-msgid "密码错误"
-msgstr "Invalid password"
-
-#: todoism/blueprints/auth.py:25
 msgid "登陆成功"
 msgstr "Login success"
 
-#: todoism/blueprints/auth.py:32
+#: todoism/blueprints/auth.py:30
 msgid "用户已退出"
 msgstr "Logout success"
 
-#: todoism/blueprints/auth.py:43
+#: todoism/blueprints/auth.py:41
 msgid "用户名已被占用"
 msgstr "Username has been used"
 
-#: todoism/blueprints/auth.py:46
+#: todoism/blueprints/auth.py:44
 msgid "去看真正的雄伟景色"
 msgstr "Witness something truly majestic"
 
-#: todoism/blueprints/auth.py:47
+#: todoism/blueprints/auth.py:45
 msgid "帮助一位完全陌生的人"
 msgstr "Help a complete stranger"
 
-#: todoism/blueprints/auth.py:48
+#: todoism/blueprints/auth.py:46
 msgid "在长城上骑自行车"
 msgstr "Drive a cycle on the Great Wall of China"
 
-#: todoism/blueprints/auth.py:49
+#: todoism/blueprints/auth.py:47
 msgid "坐在金字塔顶端"
 msgstr "Sit on the Great Egyptian Pyramids"
 
-#: todoism/blueprints/auth.py:52
+#: todoism/blueprints/auth.py:50
 msgid "用户创建成功"
 msgstr "Generate User success"
 
@@ -171,4 +167,10 @@ msgstr "Your todo was empty"
 #: todoism/templates/index.html:30
 msgid "用户名或密码不能为空!"
 msgstr "Empty username or password!"
+
+#~ msgid "用户不存在."
+#~ msgstr "Invalid username"
+
+#~ msgid "密码错误"
+#~ msgstr "Invalid password"
 
