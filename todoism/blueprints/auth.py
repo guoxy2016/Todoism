@@ -1,6 +1,6 @@
 from flask import Blueprint, request, render_template, redirect, jsonify, url_for
 from flask_babel import _
-from flask_login import current_user, login_user, logout_user
+from flask_login import current_user, login_user, logout_user, login_required
 
 from ..extensions import db
 from ..modles import User, Item
@@ -25,6 +25,7 @@ def login():
 
 
 @auth_bp.route('/logout')
+@login_required
 def logout():
     logout_user()
     return jsonify(message=_('用户已退出'))
